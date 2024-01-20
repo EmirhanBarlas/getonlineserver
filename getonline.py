@@ -1,4 +1,26 @@
+from flask import Flask, jsonify
+from flask_cors import CORS
 import requests
+
+app = Flask(__name__)
+CORS(app)
+
+@app.route('/')
+def get_online_players():
+    server_ip = "mc.splendidnw.com"
+    server_port = 25565
+
+    active_players = get_active_players(server_ip, server_port)
+    if active_players is not None:
+        return jsonify({
+            "active_players": active_players,
+            "is_online": active_players > 0,
+            "max_players": active_players + 1
+        })
+    else:
+        return jsonify({
+            "error": "Sunucu çevrimiçi değil veya bir hata oluştu."
+        })
 
 def get_active_players(server_ip, server_port):
     try:
@@ -12,12 +34,5 @@ def get_active_players(server_ip, server_port):
         print("Hata:", e)
         return None
 
-server_ip = "mc.splendidnw.com"
-server_port = 25565
-
-active_players = get_active_players(server_ip, server_port)
-if active_players is not None:
-    print(f"Aktif oyuncu sayısı: {active_players}/{active_players + 1}")
-    print(f"Sunucu çevrimiçi: {active_players > 0}")
-else:
-    print("Sunucu çevrimiçi değil veya bir hata oluştu.")
+if __name__ == '__main__':
+    app.run()

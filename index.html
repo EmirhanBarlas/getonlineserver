@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Minecraft Server Status</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+        .status {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="status">Minecraft Server Status</h1>
+        <p id="active_players"></p>
+        <p id="is_online"></p>
+    </div>
+
+    <script>
+        fetch('http://localhost:5000/')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('active_players').textContent = 'Active Players: ' + data.active_players + '/' + data.max_players;
+                document.getElementById('is_online').textContent = 'Is Online: ' + (data.is_online ? 'Online' : 'Offline');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    </script>
+</body>
+</html>
