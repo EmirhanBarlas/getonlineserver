@@ -19,7 +19,7 @@ def get_online_players():
         })
     else:
         return jsonify({
-            "error": "Sunucu çevrimiçi değil veya bir hata oluştu."
+            "error": "Sunucu çevrimiçi değil"
         })
 
 def get_active_players(server_ip, server_port): # Sunucudaki çevrimiçi oyuncu sayısını al
