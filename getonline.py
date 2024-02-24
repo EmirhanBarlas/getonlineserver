@@ -7,7 +7,7 @@ CORS(app)
 
 @app.route('/')
 def get_online_players():
-    server_ip = "mc.splendidnw.com" # Sunucu IP adresi
+    server_ip = "mc.splendidnw.com" # Sunucu IP
     server_port = 25565 # Sunucu portu
 
     active_players = get_active_players(server_ip, server_port) # Sunucudaki çevrimiçi oyuncu sayısını al
